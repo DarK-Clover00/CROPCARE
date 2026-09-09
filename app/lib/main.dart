@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
                     "assets/logo.png",
                     height: 125,
                   ),
-                  Text("SUSya",
+                  Text("CropCare",
                       style: TextStyle(
                           fontSize: 35,
                           color: Colors.green,

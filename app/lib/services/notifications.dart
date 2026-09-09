@@ -49,7 +49,7 @@ class _NotificationHandlerState extends State<NotificationHandler> {
       print('Got a message whilst in the foreground!');
       var msg = message.data['body'] ?? ' ';
 
-      Get.snackbar('Susya Alerts', msg,
+      Get.snackbar('CropCare Alerts', msg,
           duration: Duration(seconds: 2), backgroundColor: Colors.white);
 
       if (message.notification != null) {

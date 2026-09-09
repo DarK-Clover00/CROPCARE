@@ -1,34 +1,49 @@
-ml_api/
+# Environment variables and secrets
 .env
+*.env
+.env.*
+api/src/.env
 
-src/
-!app/android/app/src
+# Python Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+api/.venv/
+*/.venv/
 
-# Miscellaneous
-app/*.class
-app/*.log
-app/*.pyc
-app/*.swp
-app/.DS_Store
-app/.atom/
-app/.buildlog/
-app/.history
-app/.svn/
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyd
+*.pyo
 
-# IntelliJ related
-app/*.iml
-app/.ipr
-app/*.iws
-app/.idea/
+# Raw Training Datasets (model.pth weights remain tracked)
+model/dataset_extracted/
+model/papaya_dataset/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# OS Specific Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# Flutter/Dart/Pub related
-app/**/doc/api/
-app/**/ios/Flutter/.last_build_id
+# IDE & Editor Files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.iml
+.ipr
+*.iws
+
+# Flutter / Dart Build & Dependency Artifacts
 app/.dart_tool/
 app/.flutter-plugins
 app/.flutter-plugins-dependencies
@@ -36,17 +51,12 @@ app/.packages
 app/.pub-cache/
 app/.pub/
 app/build/
-
-# Web related
-app/lib/generated_plugin_registrant.dart
-
-# Symbolication related
-app/app.*.symbols
-
-# Obfuscation related
-app/app.*.map.json
-
-# Android Studio will place build artifacts here
+app/*.iml
+app/.ipr
+app/*.iws
 app/android/app/debug
 app/android/app/profile
 app/android/app/release
+app/lib/generated_plugin_registrant.dart
+app/app.*.symbols
+app/app.*.map.json

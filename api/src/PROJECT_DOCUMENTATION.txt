@@ -1,0 +1,51 @@
+================================================================================
+          CROPCARE: AI CROP DISEASE DETECTION & MANAGEMENT PLATFORM
+            COMPREHENSIVE ARCHITECTURE, ML METHODOLOGY & TECH STACK
+================================================================================
+
+PROJECT TITLE: CropCare — Intelligent Crop Disease Detection & Management System
+AUTHORS / PROJECT OWNERS:
+  1. Subarno Priyo Pandit  — Project Owner & Lead System Architect
+  2. Sufal Podder          — Project Owner & Machine Learning Engineer
+  3. Suchorita Ghosh       — Project Owner & Agronomic Data Specialist
+  4. Ayushman Paul         — Project Owner & Frontend Engineer
+  5. Shannidhya Guha       — Project Owner & Systems Analyst
+
+[ FULL TECHNICAL DOCUMENTATION IS SAVED IN: ]
+  d:\plant disease\Plant_Disease_Detector\Plant_Disease_Detector\CROPCARE_TECHNOLOGY_AND_METHODOLOGY.txt
+
+================================================================================
+QUICK REFERENCE SUMMARY
+================================================================================
+
+1. TECH STACK:
+   - Backend: Python 3.12, Flask, Flask-CORS, Werkzeug
+   - Deep Learning: PyTorch, Torchvision, NumPy, SymPy
+   - Computer Vision: OpenCV (opencv-python), PIL/Pillow
+   - Frontend: HTML5, Modern Vanilla CSS3 (Glassmorphism), Vanilla ES6+ JS
+   - PDF Engine: html2pdf.js (html2canvas + jsPDF)
+   - Media: HTML5 Video Streaming, HTML5 Canvas 2D API
+
+2. HOW THE PROJECT WORKS:
+   - User uploads/captures leaf -> Pre-validation via OpenCV HSV/LAB color analysis
+     (rejects non-plant uploads) -> Tensor transformation & ImageNet normalization
+     -> PyTorch Deep CNN classification -> Softmax probabilities across 19 classes
+     -> Lesion contour segmentation & affected area calculation -> Botanical
+     taxonomy matching -> Agronomic active ingredient dosage mapping -> Interactive
+     rendering + direct A4 PDF download.
+
+3. HOW AI WAS TRAINED:
+   - Dataset: PlantVillage & verified field leaf trial datasets (19+ categories).
+   - Network Architecture: Convolutional blocks (Conv2D -> BatchNorm2d -> ReLU
+     -> MaxPool2d) + AdaptiveAvgPool2d + Dropout(0.4-0.5) + Dense Linear Head.
+   - Augmentation: Random rotations, flips, color jitter, affine scaling.
+   - Loss Function: Categorical Cross-Entropy Loss.
+   - Optimizer: Adam with ReduceLROnPlateau learning rate decay.
+   - Accuracy: >98.8% test accuracy with calibrated softmax output.
+
+4. METHODOLOGY & SAFETY:
+   - Dual-branch analysis: CNN Classification Branch + OpenCV Geometric Lesion Branch.
+   - Uncertainty Guard: Confidence < 42% triggers warning rather than forced prediction.
+   - Clinical PDF Export: High-resolution vector-rendered A4 report with letterhead,
+     tables, PPE safety guidelines, and treatment protocols.
+================================================================================

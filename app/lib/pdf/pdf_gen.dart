@@ -55,7 +55,7 @@ Future<bool> makeReport({plant, disease, remedy}) async {
                   crossAxisAlignment: pw.CrossAxisAlignment.center,
                   children: [
                     pw.Spacer(),
-                    pw.Text("SUSya",
+                    pw.Text("CropCare",
                         style: pw.TextStyle(
                             color: PdfColors.green,
                             fontSize: 40,
