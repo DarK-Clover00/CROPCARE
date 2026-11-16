@@ -5,7 +5,7 @@ services:
     region: oregon
     plan: free
     branch: main
-    rootDir: Plant_Disease_Detector/Plant_Disease_Detector/api
+    rootDir: api
     buildCommand: pip install -r requirements.txt
     startCommand: cd src && gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 wsgi:app
     envVars:
