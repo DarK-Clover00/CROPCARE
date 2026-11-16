@@ -1,0 +1,46 @@
+{
+  "Potato___Early_blight": {
+    "reference_symptoms": ["Brown spots with concentric rings", "Yellow tissue around lesions"],
+    "possible_causes": ["Alternaria infection; moisture encourages spread"],
+    "treatment": ["Remove affected foliage carefully and sanitize tools.", "Reduce leaf wetness and improve plant spacing."],
+    "medicine_recommendations": [],
+    "biological_alternatives": [],
+    "application_instructions": "No verified local product label supplied; no dosage or spray schedule issued.",
+    "safety_precautions": ["Confirm diagnosis and locally registered crop-specific products with an agricultural adviser before pesticide use."],
+    "prevention": ["Rotate crops and reduce splash from soil."],
+    "sources": ["https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/early-blight-in-tomato-and-potato"]
+  },
+  "Tomato___Early_blight": {
+    "reference_symptoms": ["Brown spots with concentric rings", "Yellow tissue around lesions"],
+    "possible_causes": ["Alternaria infection; moisture encourages spread"],
+    "treatment": ["Prune infected leaves conservatively and sanitize tools.", "Water at the base; mulch to reduce soil splash."],
+    "medicine_recommendations": [],
+    "biological_alternatives": [],
+    "application_instructions": "No verified local product label supplied; no dosage or spray schedule issued.",
+    "safety_precautions": ["Confirm diagnosis and locally registered crop-specific products with an agricultural adviser before pesticide use."],
+    "prevention": ["Use resistant varieties and provide airflow."],
+    "sources": ["https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/early-blight-in-tomato-and-potato"]
+  },
+  "Potato___Late_blight": {
+    "reference_symptoms": ["Large irregular brown blotches", "Gray-green lesion margins"],
+    "possible_causes": ["Phytophthora infestans, a water mold favored by cool wet conditions"],
+    "treatment": ["Seek prompt local expert confirmation because spread can be rapid.", "Manage infected cull piles and reduce prolonged leaf wetness."],
+    "medicine_recommendations": [],
+    "biological_alternatives": [],
+    "application_instructions": "No verified local product label supplied; no dosage or spray schedule issued.",
+    "safety_precautions": ["Do not choose a pesticide from image classification alone; obtain a local registered label."],
+    "prevention": ["Monitor seed tuber health and scout during cool damp weather."],
+    "sources": ["https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/late-blight"]
+  },
+  "Tomato___Late_blight": {
+    "reference_symptoms": ["Large irregular brown blotches", "Gray-green lesion margins"],
+    "possible_causes": ["Phytophthora infestans, a water mold favored by cool wet conditions"],
+    "treatment": ["Seek prompt local expert confirmation because spread can be rapid.", "Keep foliage dry with base irrigation and adequate airflow."],
+    "medicine_recommendations": [],
+    "biological_alternatives": [],
+    "application_instructions": "No verified local product label supplied; no dosage or spray schedule issued.",
+    "safety_precautions": ["Do not choose a pesticide from image classification alone; obtain a local registered label."],
+    "prevention": ["Use resistant varieties and inspect transplants."],
+    "sources": ["https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/late-blight"]
+  }
+}

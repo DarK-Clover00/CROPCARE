@@ -3,7 +3,9 @@
             COMPREHENSIVE ARCHITECTURE, ML METHODOLOGY & TECH STACK
 ================================================================================
 
-PROJECT TITLE: CropCare — Intelligent Crop Disease Detection & Management System
+PROJECT TITLE: CropCare v3.0 — AI-Powered Live Leaf Detection & Crop Disease Management Platform
+TAGLINE: Detect Early. Protect Crops. Grow Better.
+VERSION: 3.0 (Live AI Camera Computer Vision & PyTorch Deep Learning System)
 AUTHORS / PROJECT OWNERS:
   1. Subarno Priyo Pandit  — Project Owner & Lead System Architect
   2. Sufal Podder          — Project Owner & Machine Learning Engineer
@@ -22,17 +24,27 @@ QUICK REFERENCE SUMMARY
    - Backend: Python 3.12, Flask, Flask-CORS, Werkzeug
    - Deep Learning: PyTorch, Torchvision, NumPy, SymPy
    - Computer Vision: OpenCV (opencv-python), PIL/Pillow
-   - Frontend: HTML5, Modern Vanilla CSS3 (Glassmorphism), Vanilla ES6+ JS
+   - Real-Time Camera: HTML5 MediaDevices API, HTML5 Canvas 2D API, WebRTC
+   - Frontend: Modern Vanilla CSS3 (Glassmorphism), Vanilla ES6+ Modular JS
    - PDF Engine: html2pdf.js (html2canvas + jsPDF)
-   - Media: HTML5 Video Streaming, HTML5 Canvas 2D API
+   - Media: Looping HD agricultural background video pipeline
 
-2. HOW THE PROJECT WORKS:
-   - User uploads/captures leaf -> Pre-validation via OpenCV HSV/LAB color analysis
-     (rejects non-plant uploads) -> Tensor transformation & ImageNet normalization
-     -> PyTorch Deep CNN classification -> Softmax probabilities across 19 classes
-     -> Lesion contour segmentation & affected area calculation -> Botanical
-     taxonomy matching -> Agronomic active ingredient dosage mapping -> Interactive
-     rendering + direct A4 PDF download.
+2. HOW THE PROJECT WORKS (8-STAGE PIPELINE):
+   - Stage 1: Input Acquisition via Upload, Drag-and-Drop, Sample Tray, or Live AI Camera.
+   - Stage 2: Live Leaf Localization & Real-Time Bounding Box Reticles (HSV/LAB + Texture).
+   - Stage 3: Image Capture & Intelligent Leaf Region ROI Extraction with context padding.
+   - Stage 4: OpenCV Vegetation & Foliar Verification (rejects non-plant frames).
+   - Stage 5: PyTorch Deep CNN 19-class prediction with calibrated Softmax probabilities.
+   - Stage 6: Computer Vision Lesion Contour Segmentation & Affected Area Calculation.
+   - Stage 7: Botanical taxonomy identification & evidence-based agronomic prescriptions.
+   - Stage 8: Diagnostic report display, local scan history, and one-click clinical A4 PDF export.
+
+3. LIVE AI CAMERA SYSTEM:
+   - Priority rear camera selection on mobile (`facingMode: { ideal: "environment" }`).
+   - Zero-latency client-side frame processing at 15 FPS (no bandwidth wasted).
+   - Temporal stability tracking (locks position after steady holding for >1s).
+   - Optional Auto-Capture mode with animated countdown ring.
+   - Front/rear camera flipping and graceful permission denial handling.
 
 3. HOW AI WAS TRAINED:
    - Dataset: PlantVillage & verified field leaf trial datasets (19+ categories).

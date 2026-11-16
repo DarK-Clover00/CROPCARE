@@ -43,6 +43,13 @@ Thumbs.db
 .ipr
 *.iws
 
+# Camera Runtime Outputs
+captured_leaf.jpg
+analyzed_leaf_areas.jpg
+numbered-areas.jpg
+api/src/captured_leaf.jpg
+api/src/analyzed_leaf_areas.jpg
+
 # Flutter / Dart Build & Dependency Artifacts
 app/.dart_tool/
 app/.flutter-plugins

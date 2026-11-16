@@ -1,8 +1,11 @@
 import base64
 import os
+import cv2
+import numpy as np
 from flask import Flask, jsonify, request, render_template, send_from_directory
 from flask_cors import CORS
 from model_files.ml_predict import analyze_crop_image
+from model_files.leaf_localization import detect_leaf_contours, crop_leaf_roi
 
 try:
     from pyfcm import FCMNotification
@@ -11,8 +14,15 @@ try:
 except Exception as e:
     push_service = None
 
-app = Flask("CropCare", template_folder='templates')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask("CropCare", 
+            template_folder=os.path.join(BASE_DIR, 'templates'), 
+            static_folder=os.path.join(BASE_DIR, 'static'))
 CORS(app)
+
+# Isolated trained-model pipeline for the Live AI Camera feature only.
+from camera_diagnosis import camera_api
+app.register_blueprint(camera_api)
 
 TEST_DIR = os.path.join(os.path.dirname(__file__), 'model_files', 'test')
 VIDEO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'video'))
@@ -44,6 +54,40 @@ def api_diagnose():
     return handle_diagnosis()
 
 
+@app.route('/api/detect-leaf', methods=['POST'])
+def api_detect_leaf():
+    """
+    Dedicated endpoint for real-time OpenCV-based foliar verification and leaf localization.
+    Accepts JSON { 'image': base64 } or multipart file upload.
+    """
+    try:
+        if request.is_json:
+            data = request.get_json()
+            if not data or 'image' not in data:
+                return jsonify({"status": "error", "message": "Missing 'image' base64 payload"}), 400
+            raw_base64 = data['image']
+            if ',' in raw_base64:
+                raw_base64 = raw_base64.split(',', 1)[1]
+            img_bytes = base64.b64decode(raw_base64)
+        elif 'image' in request.files:
+            file = request.files['image']
+            img_bytes = file.read()
+        else:
+            return jsonify({"status": "error", "message": "No image data provided"}), 400
+
+        nparr = np.frombuffer(img_bytes, np.uint8)
+        cv_img_bgr = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        if cv_img_bgr is None:
+            return jsonify({"status": "error", "message": "Failed to decode image data."}), 400
+
+        cv_img_rgb = cv2.cvtColor(cv_img_bgr, cv2.COLOR_BGR2RGB)
+        result = detect_leaf_contours(cv_img_rgb)
+        result["status"] = "success"
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Leaf localization error: {str(e)}"}), 500
+
+
 def handle_diagnosis():
     try:
         # Check if json with base64 image or multipart file upload
@@ -71,6 +115,23 @@ def handle_diagnosis():
             }), 400
 
         result = analyze_crop_image(img_bytes)
+
+        # Include leaf localization metadata if valid image
+        try:
+            nparr = np.frombuffer(img_bytes, np.uint8)
+            cv_img_bgr = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            if cv_img_bgr is not None:
+                cv_img_rgb = cv2.cvtColor(cv_img_bgr, cv2.COLOR_BGR2RGB)
+                loc = detect_leaf_contours(cv_img_rgb)
+                result["leaf_localization"] = {
+                    "leaf_detected": loc.get("leaf_detected", False),
+                    "bounding_box": loc.get("bounding_box"),
+                    "confidence": loc.get("confidence", 0.0),
+                    "stability_score": loc.get("stability_score", 0.0)
+                }
+        except Exception:
+            pass
+
         return jsonify(result)
 
     except Exception as e:
@@ -115,9 +176,12 @@ def serve_sample_image(filename):
 def health_check():
     return jsonify({
         "status": "online",
-        "service": "CropCare",
+        "service": "CropCare v3.0",
+        "tagline": "Detect Early. Protect Crops. Grow Better.",
         "model": "PyTorch CNN Deep Classifier (19 classes)",
         "features": [
+            "Live AI camera leaf detection and localization",
+            "Real-time leaf bounding boxes and stability lock",
             "Leaf verification",
             "Computer vision lesion segmentation",
             "Affected area percentage",

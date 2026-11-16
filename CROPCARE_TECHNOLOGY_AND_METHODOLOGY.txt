@@ -3,8 +3,9 @@
             COMPREHENSIVE ARCHITECTURE, ML METHODOLOGY & TECH STACK
 ================================================================================
 
-PROJECT TITLE: CropCare — Intelligent Crop Disease Detection & Management System
-VERSION: 2.0 (Production-Grade Computer Vision & Deep Learning Engine)
+PROJECT TITLE: CropCare v3.0 — AI-Powered Live Leaf Detection & Crop Disease Management Platform
+TAGLINE: Detect Early. Protect Crops. Grow Better.
+VERSION: 3.0 (Production-Grade Live Camera Computer Vision & Deep Learning Engine)
 AUTHORS / PROJECT OWNERS:
   1. Subarno Priyo Pandit  — Project Owner & Lead System Architect
   2. Sufal Podder          — Project Owner & Machine Learning Engineer
@@ -12,25 +13,39 @@ AUTHORS / PROJECT OWNERS:
   4. Ayushman Paul         — Project Owner & Frontend Engineer
   5. Shannidhya Guha       — Project Owner & Systems Analyst
 
-DATE: September 2026
+DATE: September 2026 / Updated v3.0
 
 --------------------------------------------------------------------------------
 TABLE OF CONTENTS
 --------------------------------------------------------------------------------
 1. EXECUTIVE SUMMARY & PROJECT PURPOSE
 2. COMPLETE TECHNOLOGY STACK
-3. SYSTEM ARCHITECTURE & END-TO-END WORKFLOW
+3. SYSTEM ARCHITECTURE & 8-STAGE WORKFLOW
+   3.1 Stage 1: Input Acquisition (Upload, Drag-and-Drop, Sample Tray, Live AI Camera)
+   3.2 Stage 2: Live Leaf Localization & Viewfinder Reticles
+   3.3 Stage 3: Image Capture and Transmission
+   3.4 Stage 4: OpenCV Foliar & Vegetation Verification
+   3.5 Stage 5: PyTorch CNN Deep Classification
+   3.6 Stage 6: Lesion Contour Segmentation & Affected Area Calculation
+   3.7 Stage 7: Agronomic Prescription & Active Ingredient Guidance
+   3.8 Stage 8: Diagnostic Report & Client-Side PDF Generation
 4. MACHINE LEARNING & COMPUTER VISION METHODOLOGY
-   4.1 Plant & Foliar Verification (Color Space Analysis)
-   4.2 Deep Convolutional Neural Network (CNN) Model
+   4.1 Real-Time Canvas & OpenCV Leaf Detection Engine
+   4.2 Deep Convolutional Neural Network (CNN) Model (19 Classes)
    4.3 Model Training Process & Pipeline
    4.4 Production Inference & Confidence Calibration
-   4.5 Computer Vision Lesion Segmentation & Area Quantification
-5. BOTANICAL TAXONOMY & AGRONOMIC KNOWLEDGE BASE
-6. CLIENT-SIDE PDF GENERATION & REPORTING ENGINE
-7. USER INTERFACE & DUAL-VIEW ROUTING ARCHITECTURE
-8. SECURITY, PERFORMANCE & BEST PRACTICES
-9. SUMMARY OF ACHIEVEMENTS
+   4.5 Lesion Contour Segmentation & Area Quantification
+5. LIVE CAMERA LEAF DETECTION ARCHITECTURE
+   5.1 HTML5 MediaDevices API & FacingMode Configuration
+   5.2 Zero-Latency Client-Side Frame Processing
+   5.3 Temporal Stability & Position Locking Filter
+   5.4 Automatic Capture Mode & Shutter Sequencing
+   5.5 Context-Preserving Leaf ROI Extraction
+6. BOTANICAL TAXONOMY & AGRONOMIC KNOWLEDGE BASE
+7. CLIENT-SIDE PDF GENERATION & REPORTING ENGINE
+8. USER INTERFACE & DUAL-VIEW ROUTING ARCHITECTURE
+9. SECURITY, PERFORMANCE & PRIVACY CONTROLS
+10. SUMMARY OF ACHIEVEMENTS
 
 ================================================================================
 1. EXECUTIVE SUMMARY & PROJECT PURPOSE

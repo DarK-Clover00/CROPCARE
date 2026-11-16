@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CropCare — Intelligent Crop Disease Detection & Management</title>
-  <meta name="description" content="CropCare AI - Production-grade AI crop health diagnostic platform powered by PyTorch deep neural networks and computer vision symptom analysis.">
+  <title>CropCare v3.0 — AI-Powered Live Leaf Detection & Crop Disease Management Platform</title>
+  <meta name="description" content="CropCare v3.0 - Detect Early. Protect Crops. Grow Better. Production-grade AI crop health diagnostic platform powered by PyTorch deep neural networks, live camera leaf localization, and computer vision symptom analysis.">
   
   <!-- Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1495,6 +1495,366 @@
       margin-top: 12px;
     }
 
+    /* LIVE AI CAMERA SCANNER UI (CropCare v3.0) */
+    .input-mode-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      background: rgba(22, 163, 74, 0.08);
+      padding: 5px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .input-tab {
+      flex: 1;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.22s ease;
+    }
+
+    .input-tab.active {
+      background: #ffffff;
+      color: var(--text-dark);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .tab-live-badge {
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      animation: pulseRed 1.8s infinite;
+    }
+
+    @keyframes pulseRed {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(0.96); }
+    }
+
+    .camera-scanner-wrapper {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #0b1f14;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 20px;
+    }
+
+    .scanner-hud-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: #0f2619;
+      border-bottom: 1px solid rgba(22, 163, 74, 0.3);
+      color: #ffffff;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hud-status-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .dot-active {
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .dot-pending {
+      background: #eab308;
+      box-shadow: 0 0 10px #eab308;
+    }
+
+    .dot-inactive {
+      background: #6b7280;
+    }
+
+    .hud-status-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .status-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+
+    .pill-searching {
+      background: rgba(6, 182, 212, 0.22);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+    }
+
+    .pill-detected {
+      background: rgba(16, 185, 129, 0.22);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.45);
+    }
+
+    .pill-locked {
+      background: rgba(34, 197, 94, 0.28);
+      color: #4ade80;
+      border: 1px solid #4ade80;
+      box-shadow: 0 0 12px rgba(74, 222, 128, 0.45);
+    }
+
+    .pill-analyzing {
+      background: rgba(234, 179, 8, 0.25);
+      color: #facc15;
+      border: 1px solid #facc15;
+    }
+
+    .pill-idle {
+      background: rgba(255, 255, 255, 0.1);
+      color: #9ca3af;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .hud-actions-group .btn-icon {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .hud-actions-group .btn-icon:hover {
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    .live-camera-container {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      background: #05140b;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .live-camera-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    .live-camera-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .viewfinder-placeholder {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      color: #a7f3d0;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .vf-icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .vf-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .vf-sub {
+      font-size: 0.84rem;
+      color: #94a3b8;
+      max-width: 320px;
+      line-height: 1.45;
+    }
+
+    .camera-error-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #fef2f2;
+      border-bottom: 1px solid #fecaca;
+      color: #991b1b;
+      font-size: 0.85rem;
+    }
+
+    .scanner-controls-bar {
+      padding: 14px 16px;
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .scanner-toggle-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      padding-bottom: 4px;
+    }
+
+    .switch-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      user-select: none;
+    }
+
+    .switch-control input {
+      display: none;
+    }
+
+    .switch-slider {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      background: #cbd5e1;
+      border-radius: 999px;
+      transition: all 0.25s ease;
+      display: inline-block;
+    }
+
+    .switch-slider::before {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      left: 3px;
+      top: 3px;
+      background: #ffffff;
+      border-radius: 50%;
+      transition: all 0.25s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+
+    .switch-control input:checked + .switch-slider {
+      background: var(--primary);
+    }
+
+    .switch-control input:checked + .switch-slider::before {
+      transform: translateX(16px);
+    }
+
+    .scanner-btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .scanner-btn-group button {
+      flex: 1;
+      min-width: 160px;
+      margin-top: 0;
+    }
+
+    .btn-capture-large {
+      background: linear-gradient(135deg, var(--primary), var(--emerald));
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(22, 163, 74, 0.35);
+    }
+
+    .btn-pulse-ready {
+      animation: pulseGlow 1.4s infinite;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.7);
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.02); filter: brightness(1.12); }
+    }
+
+    .scanner-guidance-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 16px;
+      background: #f0fdf4;
+      border-top: 1px dashed var(--border-color);
+      font-size: 0.79rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .camera-shutter-flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      z-index: 50;
+      pointer-events: none;
+      animation: shutterFlash 0.35s ease-out forwards;
+    }
+
+    @keyframes shutterFlash {
+      0% { opacity: 0.9; }
+      100% { opacity: 0; }
+    }
+
     /* ORGANIZED REPORT PREVIEW MODAL */
     .report-modal {
       display: none;
@@ -1770,14 +2130,15 @@
       <div class="brand-wrap" style="cursor: pointer;" onclick="showHomeView()" title="Return to CropCare Home">
         <div class="brand-logo">🌿</div>
         <div>
-          <h1 class="brand-title">CropCare</h1>
-          <p class="brand-subtitle">Intelligent Crop Disease Detection & Management</p>
+          <h1 class="brand-title">CropCare <span>v3.0</span></h1>
+          <p class="brand-subtitle">Detect Early. Protect Crops. Grow Better.</p>
         </div>
       </div>
 
       <nav class="header-nav">
         <button class="nav-btn nav-home-btn active" onclick="showHomeView()">🏠 Home</button>
         <button class="nav-btn nav-dash-btn" onclick="showDashboardView()">📊 Dashboard</button>
+        <button class="nav-btn" onclick="showDashboardViewWithCamera()">📷 Live Camera</button>
         <button class="nav-btn" onclick="openHistoryDrawer()">📋 History</button>
         <button class="nav-btn" onclick="downloadPdfReport()">⬇️ Download PDF</button>
         <button class="nav-btn" onclick="openReportModal()">📑 View Report</button>
@@ -1795,20 +2156,23 @@
       <!-- HERO INTRODUCTION SECTION -->
       <section class="hero-card">
         <div class="hero-badge">
-          <span>🌿</span> Precision Agriculture • Deep Neural Computer Vision
+          <span>🌿</span> Precision Agriculture • Real-Time AI Camera Vision
         </div>
         <h2 class="hero-title">
-          CropCare — <span>Intelligent Crop Disease Detection</span> & Management Platform
+          CropCare v3.0 — <span>Live Leaf Detection & Disease Identification</span> Platform
         </h2>
         <p class="hero-desc">
-          CropCare is an automated precision-agriculture diagnostic platform engineered to detect and diagnose plant illnesses directly from foliar imagery. 
-          Powered by PyTorch deep convolutional neural networks and OpenCV vegetation color-space verification, CropCare identifies crops and botanical leaf morphology, 
-          detects fungal, bacterial, and viral foliar diseases in real time, isolates necrotic lesion areas, and delivers actionable agronomic treatment protocols, registered chemical/biological active ingredients with field dosages, and instant exportable PDF reports.
+          CropCare is an automated precision-agriculture diagnostic platform engineered to detect and diagnose plant illnesses directly from foliar imagery and live camera feeds. 
+          Powered by real-time computer-vision leaf localization, PyTorch deep convolutional neural networks, and OpenCV multi-spectral vegetation verification, CropCare identifies crops and botanical leaf morphology, 
+          detects fungal, bacterial, and viral foliar diseases in real time, isolates necrotic lesion areas, and delivers actionable agronomic treatment protocols, registered chemical/biological active ingredients with field dosages, and instant exportable clinical PDF reports.
         </p>
 
         <div class="hero-cta-group">
           <button class="btn-enter-dash" onclick="showDashboardView()">
             <span>🚀</span> Enter to View Dashboard
+          </button>
+          <button class="btn-enter-dash" style="background: linear-gradient(135deg, #059669, #0d9488); box-shadow: 0 8px 20px rgba(5, 150, 105, 0.35);" onclick="showDashboardViewWithCamera()">
+            <span>📷</span> Open Live AI Camera
           </button>
           <button class="btn-team-link" onclick="document.getElementById('ownersSection').scrollIntoView({behavior: 'smooth'})">
             <span>👥</span> Project Owners & Team
@@ -1971,74 +2335,168 @@
       <!-- MAIN DASHBOARD 2-COLUMN BALANCED GRID -->
       <div class="dashboard-grid">
       
-      <!-- LEFT COLUMN: IMAGE UPLOAD & VISION ANALYSIS -->
+      <!-- LEFT COLUMN: IMAGE UPLOAD & LIVE CAMERA VISION ANALYSIS -->
       <div class="card">
         <div class="card-header">
           <h2 class="card-title">
-            <span>📷</span> Image Analysis
+            <span>📷</span> Diagnostic Leaf Input
           </h2>
-          <span style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted);">Step 1: Leaf Input</span>
+          <span style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted);">Step 1: Leaf Acquisition</span>
         </div>
 
-        <!-- Modern Drag and Drop Zone -->
-        <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
-          <div class="dropzone-icon">🌿</div>
-          <div class="dropzone-title">Upload Crop / Leaf Image</div>
-          <div class="dropzone-desc">Drag & drop your leaf image here or click to browse from device</div>
-          <div class="dropzone-btn">Browse Image</div>
-          <div class="dropzone-meta">Supported: JPG • JPEG • PNG • WEBP (Max 25MB)</div>
-        </div>
-
-        <input type="file" id="fileInput" accept="image/*" style="display: none;">
-
-        <!-- Secondary Upload Actions -->
-        <div class="upload-action-row">
-          <button class="btn-secondary" onclick="openCameraModal()">
-            <span>📷</span> Take Photo
+        <!-- DIAGNOSTIC INPUT MODE SELECTOR -->
+        <div class="input-mode-tabs">
+          <button class="input-tab active" id="tabUpload" type="button">
+            <span>📁</span> Upload / Sample Leaf
           </button>
-          <button class="btn-secondary" id="clearBtn" style="display: none;" onclick="clearCurrentImage()">
-            <span>🗑️</span> Reset Image
+          <button class="input-tab" id="tabCamera" type="button">
+            <span>📷</span> Live AI Camera <span class="tab-live-badge">AI LIVE</span>
           </button>
         </div>
 
-        <!-- Image Preview & AI Segmentation Overlay -->
-        <div class="preview-wrapper" id="previewWrapper">
-          <div class="image-stage" id="imageStage">
-            <img class="preview-img" id="previewImg" alt="Uploaded Leaf Preview">
-            <canvas class="detection-canvas" id="detectionCanvas"></canvas>
-            <div class="scan-beam" id="scanBeam"></div>
+        <!-- OPTION 1: IMAGE UPLOAD & SAMPLES -->
+        <div id="panelUpload">
+          <!-- Modern Drag and Drop Zone -->
+          <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+            <div class="dropzone-icon">🌿</div>
+            <div class="dropzone-title">Upload Crop / Leaf Image</div>
+            <div class="dropzone-desc">Drag & drop your leaf image here or click to browse from device</div>
+            <div class="dropzone-btn">Browse Image</div>
+            <div class="dropzone-meta">Supported: JPG • JPEG • PNG • WEBP (Max 25MB)</div>
           </div>
-          <div class="preview-toolbar">
-            <div id="detectionAreaStat">Detected affected area: 0%</div>
-            <button class="overlay-toggle active" id="overlayToggleBtn" onclick="toggleDetectionOverlay()">
-              👁️ View AI Detection Areas
+
+          <input type="file" id="fileInput" accept="image/*" style="display: none;">
+
+          <!-- Secondary Upload Actions -->
+          <div class="upload-action-row">
+            <button class="btn-primary" style="margin-top: 0; background: linear-gradient(135deg, var(--primary), var(--emerald)); color: #fff;" onclick="window.cropCareCameraUI ? window.cropCareCameraUI.setMode('camera') : document.getElementById('tabCamera').click()">
+              <span>📷</span> Open Live Camera
+            </button>
+            <button class="btn-secondary" onclick="openCameraModal()">
+              <span>📸</span> Quick Snapshot
+            </button>
+            <button class="btn-secondary" id="clearBtn" style="display: none;" onclick="clearCurrentImage()">
+              <span>🗑️</span> Reset Image
             </button>
           </div>
+
+          <!-- Image Preview & AI Segmentation Overlay -->
+          <div class="preview-wrapper" id="previewWrapper">
+            <div class="image-stage" id="imageStage">
+              <img class="preview-img" id="previewImg" alt="Uploaded Leaf Preview">
+              <canvas class="detection-canvas" id="detectionCanvas"></canvas>
+              <div class="scan-beam" id="scanBeam"></div>
+            </div>
+            <div class="preview-toolbar">
+              <div id="detectionAreaStat">Detected affected area: 0%</div>
+              <button class="overlay-toggle active" id="overlayToggleBtn" onclick="toggleDetectionOverlay()">
+                👁️ View AI Detection Areas
+              </button>
+            </div>
+          </div>
+
+          <!-- Analyze Button -->
+          <button class="btn-primary" id="diagnoseBtn" disabled onclick="runAIDiagnosis()">
+            <span>🔍</span> Analyze Disease
+          </button>
+
+          <!-- Multi-stage Animated Progress -->
+          <div class="analysis-progress-card" id="progressCard">
+            <div class="progress-step-text" id="progressStepText">
+              <span>⏳</span> Analyzing image...
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+          </div>
+
+          <!-- Sample Leaf Tray (Images named POTATO are shown as Leaf) -->
+          <div class="sample-section">
+            <div class="sample-header">
+              <span class="sample-title">Choose Sample Leaf</span>
+              <span style="font-size: 0.74rem; color: var(--text-muted);">Real AI inference test</span>
+            </div>
+            <div class="sample-tray" id="sampleTray">
+              <!-- Dynamically populated from /api/samples with Leaf names -->
+            </div>
+          </div>
         </div>
 
-        <!-- Analyze Button -->
-        <button class="btn-primary" id="diagnoseBtn" disabled onclick="runAIDiagnosis()">
-          <span>🔍</span> Analyze Disease
-        </button>
+        <!-- OPTION 2: LIVE AI CAMERA SCANNER -->
+        <div id="panelCamera" style="display: none;">
+          <div class="camera-scanner-wrapper">
+            <!-- Viewfinder Header / HUD Bar -->
+            <div class="scanner-hud-bar">
+              <div class="hud-status-group">
+                <span class="status-dot dot-inactive" id="cameraStatusDot"></span>
+                <span class="hud-status-label" id="cameraStatusText">Camera Inactive</span>
+              </div>
+              <div class="hud-center-pill">
+                <span class="status-pill pill-idle" id="detectionBadge">
+                  <span>🔍</span> Ready to Start
+                </span>
+              </div>
+              <div class="hud-actions-group">
+                <button class="btn-icon" id="btnSwitchCamera" title="Switch between front and rear cameras" type="button">
+                  <span>🔄</span> Flip Camera
+                </button>
+              </div>
+            </div>
 
-        <!-- Multi-stage Animated Progress -->
-        <div class="analysis-progress-card" id="progressCard">
-          <div class="progress-step-text" id="progressStepText">
-            <span>⏳</span> Analyzing image...
-          </div>
-          <div class="progress-track">
-            <div class="progress-bar-fill" id="progressBarFill"></div>
-          </div>
-        </div>
+            <!-- Error Banner (if permission denied or hardware unavailable) -->
+            <div class="camera-error-banner" id="cameraErrorBanner" style="display: none;">
+              <span style="font-size: 1.2rem;">⚠️</span>
+              <div style="flex: 1;">
+                <strong style="display: block; margin-bottom: 2px;">Camera Notice</strong>
+                <span id="cameraErrorMsg">Camera access is required for real-time leaf detection.</span>
+              </div>
+            </div>
 
-        <!-- Sample Leaf Tray (Images named POTATO are shown as Leaf) -->
-        <div class="sample-section">
-          <div class="sample-header">
-            <span class="sample-title">Choose Sample Leaf</span>
-            <span style="font-size: 0.74rem; color: var(--text-muted);">Real AI inference test</span>
-          </div>
-          <div class="sample-tray" id="sampleTray">
-            <!-- Dynamically populated from /api/samples with Leaf names -->
+            <!-- Viewfinder Area with Live Video & Overlay Canvas -->
+            <div class="live-camera-container" id="liveCameraContainer">
+              <video class="live-camera-video" id="liveCameraVideo" autoplay playsinline muted></video>
+              <canvas class="live-camera-overlay" id="liveCameraOverlay"></canvas>
+              
+              <!-- Subtle Viewfinder Placeholder when Camera is Off -->
+              <div class="viewfinder-placeholder" id="viewfinderPlaceholder">
+                <div class="vf-icon">🌿</div>
+                <div class="vf-title">Live AI Foliar Scanner</div>
+                <div class="vf-sub">Click "Open Live Camera" below to activate real-time leaf localization and live disease analysis</div>
+              </div>
+            </div>
+
+            <!-- Controls Toolbar -->
+            <div class="scanner-controls-bar">
+              <div class="scanner-toggle-group">
+                <label class="switch-control" title="Automatically captures and diagnoses once leaf position is locked steady">
+                  <input type="checkbox" id="chkAutoCapture">
+                  <span class="switch-slider"></span>
+                  <span class="switch-label">Auto-Capture Mode</span>
+                </label>
+                <label class="switch-control" title="Intelligently extracts the detected leaf region with context margin padding">
+                  <input type="checkbox" id="chkIntelligentCrop" checked>
+                  <span class="switch-slider"></span>
+                  <span class="switch-label">Focus Leaf ROI</span>
+                </label>
+              </div>
+
+              <div class="scanner-btn-group">
+                <button class="btn-primary" id="btnStartStopCamera" type="button">
+                  <span>📷</span> Open Live Camera
+                </button>
+                <button class="btn-primary btn-capture-large" id="btnCaptureAnalyze" type="button" disabled>
+                  <span>📸</span> Capture & Analyze Leaf
+                </button>
+              </div>
+            </div>
+
+            <!-- Scanner Helper Guidance Footnote -->
+            <div class="scanner-guidance-note">
+              <div style="font-size: 1.1rem; line-height: 1;">💡</div>
+              <div style="flex: 1;">
+                Point your device camera at a plant leaf. The AI will draw an emerald reticle with a scanning beam around the foliage. Hold steady for 1 second to lock position, then tap <strong>Capture & Analyze Leaf</strong>.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2121,6 +2579,56 @@
             <ul class="bullet-list" id="resSymptomsList" style="margin-top: 8px;">
               <!-- Dynamic Symptoms -->
             </ul>
+          </div>
+
+          <!-- Area-Wise Disease Detection & Localization Card -->
+          <div class="metric-card" id="areaDetectionCard">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <div class="metric-label" style="color: #dc2626; font-weight: 800; display: flex; align-items: center; gap: 6px; font-size: 0.86rem;">
+                <span>🎯</span> AREA-WISE DISEASE LOCALIZATION
+              </div>
+              <span class="badge" id="areaCountBadge" style="background: #fee2e2; color: #b91c1c; font-weight: 700;">0 Regions</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; background: #fff5f5; padding: 12px; border-radius: 8px; border: 1px solid #fed7d7;">
+              <div>
+                <div style="font-size: 0.70rem; color: #7f1d1d; font-weight: 700; text-transform: uppercase;">Health Status</div>
+                <div style="font-size: 0.92rem; font-weight: 800; color: #991b1b;" id="areaHealthStatus">—</div>
+              </div>
+              <div>
+                <div style="font-size: 0.70rem; color: #7f1d1d; font-weight: 700; text-transform: uppercase;">Detected Regions</div>
+                <div style="font-size: 0.92rem; font-weight: 800; color: #991b1b;" id="areaNumRegions">—</div>
+              </div>
+              <div>
+                <div style="font-size: 0.70rem; color: #7f1d1d; font-weight: 700; text-transform: uppercase;">Affected Leaf Area</div>
+                <div style="font-size: 0.92rem; font-weight: 800; color: #991b1b;" id="areaAffectedPct">—</div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.73rem; color: #64748b; margin-bottom: 10px; line-height: 1.4;">
+              <strong>Calculation Method:</strong> <code>(Total Infected Pixels / Total Leaf Pixels) × 100</code> via HSV/LAB multi-spectral segmentation & Non-Maximum Suppression (NMS).
+            </div>
+
+            <!-- Table Container -->
+            <div id="areaTableWrapper" style="overflow-x: auto; margin-bottom: 6px;">
+              <table class="rep-table" id="areaWiseDashboardTable" style="margin: 0; font-size: 0.80rem;">
+                <thead>
+                  <tr style="background: #fee2e2;">
+                    <th style="color: #991b1b;">Region</th>
+                    <th style="color: #991b1b;">Detection</th>
+                    <th style="color: #991b1b;">Confidence</th>
+                    <th style="color: #991b1b;">Affected Area %</th>
+                  </tr>
+                </thead>
+                <tbody id="areaWiseDashboardTbody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+
+            <div id="noAreasNotice" style="display: none; font-size: 0.82rem; color: #166534; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 10px 14px; border-radius: 6px; font-weight: 600;">
+              🌿 No infected regions detected. Foliar lamina is uniform and healthy (0.0% affected area).
+            </div>
           </div>
 
           <!-- Action & PDF Export Bar -->
@@ -2307,19 +2815,47 @@
           </div>
 
           <!-- Visual Evidence -->
-          <div class="rep-section-title">2. Visual Diagnostic Evidence</div>
-          <div class="rep-img-preview-row">
-            <img class="rep-leaf-img" id="repImg" alt="Crop Leaf Sample">
-            <div style="flex: 1;">
-              <div style="font-weight: 700; color: #0f172a; margin-bottom: 4px;">Computer-Vision Lesion Extraction</div>
-              <div style="font-size: 0.85rem; color: #475569; margin-bottom: 6px;">
-                Surface analysis scanned for chlorosis, necrotic spotting, and mycelial clusters.
+          <div class="rep-section-title">2. Visual Diagnostic Evidence & Area-Wise Detection</div>
+          <div class="rep-img-preview-row" style="display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap;">
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <div style="text-align: center;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #475569; margin-bottom: 4px;">Original Foliage Capture</div>
+                <img class="rep-leaf-img" id="repImg" alt="Crop Leaf Sample" style="width: 140px; height: 140px; object-fit: cover; border-radius: 6px; border: 1px solid #cbd5e1;">
+              </div>
+              <div style="text-align: center;" id="repAnnotatedWrapper">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #b91c1c; margin-bottom: 4px;">Area-Wise AI Bounding Boxes</div>
+                <img class="rep-leaf-img" id="repAnnotatedImg" alt="AI Analyzed Leaf" style="width: 140px; height: 140px; object-fit: cover; border-radius: 6px; border: 2px solid #ef4444;">
+              </div>
+            </div>
+            <div style="flex: 1; min-width: 200px;">
+              <div style="font-weight: 700; color: #0f172a; margin-bottom: 4px;">Computer-Vision Lesion Extraction & Segmentation</div>
+              <div style="font-size: 0.82rem; color: #475569; margin-bottom: 6px;">
+                Surface analysis scanned for chlorosis, necrotic spotting, mycelial clusters, and foliar margins with Non-Maximum Suppression (NMS).
               </div>
               <div style="font-size: 0.82rem; font-weight: 700; color: #166534;" id="repAreaCoverage">
                 Estimated Affected Foliar Area: 0%
               </div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #b91c1c; margin-top: 4px;" id="repNumAreas">
+                Detected Suspected Areas: 0
+              </div>
             </div>
           </div>
+
+          <!-- Section 2.1: Area-Wise Localization Table -->
+          <div class="rep-section-title" style="margin-top: 14px;">2.1. Area-Wise Infected Region Breakdown</div>
+          <table class="rep-table" id="repAreaTable" style="margin-bottom: 14px;">
+            <thead>
+              <tr style="background: #fef2f2;">
+                <th style="color: #991b1b;">Region</th>
+                <th style="color: #991b1b;">Detection</th>
+                <th style="color: #991b1b;">Confidence</th>
+                <th style="color: #991b1b;">Affected Area %</th>
+              </tr>
+            </thead>
+            <tbody id="repAreaBody">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
 
           <!-- Clinical Symptoms -->
           <div class="rep-section-title">3. Observed Symptoms</div>
@@ -2425,8 +2961,15 @@
   <!-- TOAST NOTIFICATION -->
   <div class="toast" id="toast">Notification Message</div>
 
+  <!-- CROPCARE v3.0 MODULAR LIVE CAMERA AI MODULES -->
+  <script src="/static/js/camera.js"></script>
+  <script src="/static/js/leafDetection.js"></script>
+  <script src="/static/js/cameraCapture.js"></script>
+  <script src="/static/js/cameraUI.js"></script>
+
   <!-- JAVASCRIPT APPLICATION LOGIC -->
   <script>
+    let cropCareCameraUI = null;
     let currentBase64Image = null;
     let currentDiagnosisData = null;
     let showDetectionOverlay = true;
@@ -2824,6 +3367,45 @@
         </li>
       `).join('');
 
+      // Populate Area-Wise Localization Card & Table
+      const healthStatus = data.health_status || (data.is_healthy ? 'HEALTHY' : 'DISEASE DETECTED');
+      const numRegions = data.num_detected_regions !== undefined ? data.num_detected_regions : (data.detected_regions ? data.detected_regions.length : (data.bounding_boxes ? data.bounding_boxes.length : 0));
+      
+      const healthEl = document.getElementById('areaHealthStatus');
+      if (healthEl) {
+        healthEl.textContent = healthStatus;
+        healthEl.style.color = data.is_healthy ? 'var(--primary)' : '#991b1b';
+      }
+      const numRegEl = document.getElementById('areaNumRegions');
+      if (numRegEl) numRegEl.textContent = numRegions;
+      const countBadge = document.getElementById('areaCountBadge');
+      if (countBadge) countBadge.textContent = `${numRegions} Regions`;
+      const areaPctEl = document.getElementById('areaAffectedPct');
+      if (areaPctEl) areaPctEl.textContent = `${affectedAreaPct}%`;
+
+      const areaTbody = document.getElementById('areaWiseDashboardTbody');
+      const areaWrapper = document.getElementById('areaTableWrapper');
+      const noAreasNotice = document.getElementById('noAreasNotice');
+
+      if (data.detected_regions && data.detected_regions.length > 0) {
+        if (areaWrapper) areaWrapper.style.display = 'block';
+        if (noAreasNotice) noAreasNotice.style.display = 'none';
+        if (areaTbody) {
+          areaTbody.innerHTML = data.detected_regions.map((r, i) => `
+            <tr>
+              <td><strong style="color: #b91c1c;">${r.id || ('Area ' + (i + 1))}</strong></td>
+              <td>${r.label || 'Suspected infected region'}</td>
+              <td><span style="font-family: monospace; font-weight: 700;">${r.confidence_percent || (r.confidence ? (r.confidence * 100).toFixed(1) : '90.0')}%</span></td>
+              <td><span style="font-family: monospace; font-weight: 700;">${r.area_percentage_of_leaf !== undefined ? r.area_percentage_of_leaf + '%' : '—'}</span></td>
+            </tr>
+          `).join('');
+        }
+      } else {
+        if (areaWrapper) areaWrapper.style.display = 'none';
+        if (noAreasNotice) noAreasNotice.style.display = 'block';
+        if (areaTbody) areaTbody.innerHTML = '';
+      }
+
       drawDetectionOverlay(data.bounding_boxes || []);
     }
 
@@ -2845,18 +3427,24 @@
         const w = (b.width / 100) * canvas.width;
         const h = (b.height / 100) * canvas.height;
 
-        ctx.fillStyle = 'rgba(239, 68, 68, 0.22)';
+        ctx.fillStyle = 'rgba(239, 68, 68, 0.20)';
         ctx.fillRect(x, y, w, h);
 
         ctx.strokeStyle = '#ef4444';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.strokeRect(x, y, w, h);
 
-        ctx.fillStyle = 'rgba(239, 68, 68, 0.9)';
-        ctx.fillRect(x, Math.max(0, y - 16), 46, 16);
+        const labelText = b.id || b.label || `Area ${i+1}`;
+        ctx.font = 'bold 11px Inter, -apple-system, sans-serif';
+        const textMetrics = ctx.measureText(labelText);
+        const badgeW = Math.max(50, textMetrics.width + 10);
+        const badgeH = 18;
+        const badgeY = Math.max(0, y - badgeH);
+
+        ctx.fillStyle = 'rgba(220, 38, 38, 0.95)';
+        ctx.fillRect(x, badgeY, badgeW, badgeH);
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 9px monospace';
-        ctx.fillText(`Area ${i+1}`, x + 4, Math.max(12, y - 4));
+        ctx.fillText(labelText, x + 5, badgeY + 13);
       });
     }
 
@@ -2915,6 +3503,42 @@
         document.getElementById('repImg').style.display = 'block';
       } else {
         document.getElementById('repImg').style.display = 'none';
+      }
+
+      // Populate Annotated Image in Report
+      const repAnnotatedImg = document.getElementById('repAnnotatedImg');
+      const repAnnotatedWrapper = document.getElementById('repAnnotatedWrapper');
+      if (d.annotated_image_base64) {
+        repAnnotatedImg.src = 'data:image/jpeg;base64,' + d.annotated_image_base64;
+        repAnnotatedWrapper.style.display = 'block';
+      } else if (currentBase64Image) {
+        repAnnotatedImg.src = currentBase64Image;
+        repAnnotatedWrapper.style.display = 'block';
+      } else {
+        repAnnotatedWrapper.style.display = 'none';
+      }
+
+      // Populate Area Count and Breakdown Table
+      const repNumAreas = document.getElementById('repNumAreas');
+      const numAreas = d.num_detected_regions !== undefined ? d.num_detected_regions : (d.detected_regions ? d.detected_regions.length : 0);
+      if (repNumAreas) {
+        repNumAreas.textContent = `Detected Suspected Areas: ${numAreas}`;
+      }
+
+      const repAreaBody = document.getElementById('repAreaBody');
+      if (repAreaBody) {
+        if (d.detected_regions && d.detected_regions.length > 0) {
+          repAreaBody.innerHTML = d.detected_regions.map((r, i) => `
+            <tr>
+              <td><strong style="color: #b91c1c;">${r.id || ('Area ' + (i + 1))}</strong></td>
+              <td>${r.label || 'Suspected infected region'}</td>
+              <td><span style="font-family: monospace; font-weight: 700;">${r.confidence_percent || (r.confidence ? (r.confidence * 100).toFixed(1) : '90.0')}%</span></td>
+              <td><span style="font-family: monospace; font-weight: 700;">${r.area_percentage_of_leaf !== undefined ? r.area_percentage_of_leaf + '%' : '—'}</span></td>
+            </tr>
+          `).join('');
+        } else {
+          repAreaBody.innerHTML = '<tr><td colspan="4" style="color: #166534; font-weight: 600;">🌿 No infected regions detected. Foliar lamina is uniform and healthy (0.0% affected area).</td></tr>';
+        }
       }
 
       // Populate symptoms
@@ -3139,6 +3763,9 @@
 
     // VIEW ROUTING: HOME vs DASHBOARD
     function showHomeView() {
+      if (window.cropCareCameraUI) {
+        window.cropCareCameraUI.stopCamera();
+      }
       const home = document.getElementById('homeView');
       const dash = document.getElementById('dashboardView');
       if (home && dash) {
@@ -3172,6 +3799,18 @@
       } catch(e) {}
     }
 
+    function showDashboardViewWithCamera() {
+      showDashboardView();
+      setTimeout(() => {
+        if (window.cropCareCameraUI) {
+          window.cropCareCameraUI.setMode('camera');
+        } else {
+          const tab = document.getElementById('tabCamera');
+          if (tab) tab.click();
+        }
+      }, 60);
+    }
+
     window.addEventListener('popstate', () => {
       if (window.location.hash === '#dashboard') {
         showDashboardView();
@@ -3188,6 +3827,25 @@
     }
 
     loadSampleImages();
+
+    // Initialize CropCare v3.0 Camera & AI Live Leaf Detector
+    function initCropCareCamera() {
+      try {
+        if (!cropCareCameraUI && typeof CropCareCameraUI !== 'undefined') {
+          cropCareCameraUI = new CropCareCameraUI();
+          cropCareCameraUI.init();
+          window.cropCareCameraUI = cropCareCameraUI;
+        }
+      } catch (err) {
+        console.warn('CropCareCameraUI init notice:', err);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCropCareCamera);
+    } else {
+      initCropCareCamera();
+    }
   </script>
 </body>
 </html>

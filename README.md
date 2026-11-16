@@ -1,6 +1,8 @@
-# 🌿 CropCare — Intelligent Crop Disease Detection & Agricultural Management
+# 🌿 CropCare v3.0 — AI-Powered Live Leaf Detection & Crop Disease Management Platform
 
-CropCare is an automated precision-agriculture diagnostic platform engineered to detect and diagnose plant illnesses directly from foliar photography. Utilizing PyTorch deep convolutional neural networks and OpenCV computer-vision vegetation verification, CropCare analyzes uploaded crop leaves in real time, isolates necrotic lesion areas, identifies botanical species and leaf morphology, determines pathogen severity, prescribes registered chemical and bio-fungicides with exact application rates, and generates comprehensive, downloadable clinical agricultural PDF reports.
+> **Detect Early. Protect Crops. Grow Better.**
+
+CropCare v3.0 is an automated precision-agriculture diagnostic platform engineered to detect and diagnose plant illnesses directly from foliar photography and **live camera video feeds**. Utilizing PyTorch deep convolutional neural networks and OpenCV multi-spectral vegetation verification, CropCare tracks and recognizes crop leaves through a real-time camera viewfinder, isolates necrotic lesion areas, identifies botanical species and leaf morphology, determines pathogen severity, prescribes registered chemical and bio-fungicides with exact application rates, and generates comprehensive clinical agricultural PDF reports.
 
 ---
 
@@ -15,12 +17,19 @@ CropCare is an automated precision-agriculture diagnostic platform engineered to
 
 ## 🚀 Key Features
 
-- **Genuine AI Computer Vision**: Softmax probability distributions across 19+ crop-pathogen classes (Potato, Tomato, Bell Pepper, Corn, Apple, Grape, Peach, Strawberry, Papaya).
-- **Automated Foliar Verification**: OpenCV HSV and L\*a\*b\* color-space analysis detects authentic vegetation and rejects non-plant images.
-- **Lesion Contour Segmentation**: Isolates chlorotic halos and necrotic spots, calculating the percentage of affected leaf surface area.
+- **NEW: Discrete Area-Wise Disease Detection**: Highlights distinct suspected infected regions using dynamic red bounding boxes labelled `Area 1`, `Area 2`, `Area 3`, etc., matching clinical diagnostic standards. Each lesion cluster receives individual confidence scoring and Non-Maximum Suppression (NMS) with $\text{IoU} \le 0.30$.
+- **NEW: True Pixel Segmentation Affected Area**: Computes affected leaf area strictly via the true foliar mask formula: $(\sum M_{\text{infected}} / \sum M_{\text{leaf}}) \times 100$. Healthy leaves are verified with 0 infected regions and 0.0% affected area.
+- **NEW: Two-Stage Crop-Gated AI Pipeline**: 
+  - *Stage 1*: Botanical crop recognition across **100+ distinct agricultural plant varieties**.
+  - *Stage 2*: Crop-gated disease classification that strictly bounds predictions to biologically valid pathogens, eliminating cross-crop misclassifications. Unsupported crops are recognized and guided to extension experts without false disease triggers.
+- **NEW: Standalone OpenCV Camera Tool (`capture_camera.py`)**: Real-time webcam capture tool with foliar targeting reticle, key-triggered capture (<kbd>c</kbd> or <kbd>SPACE</kbd>), on-screen bounding boxes, and terminal diagnostic table.
+- **NEW: Live In-Browser AI Camera**: Live HTML5 MediaDevices & Canvas viewfinder with emerald targeting reticles, laser scanning beam, front/rear camera switching (`facingMode: { ideal: "environment" }`), and instant Area-Wise breakdown table.
+- **NEW: Model Validation & Evaluation Suite (`evaluate_models.py`)**: Comprehensive test runner measuring crop recognition accuracy, disjoint class gating, IoU suppression, and non-plant image rejection.
+- **Genuine AI Deep Learning**: Softmax probability distributions across 19+ crop-pathogen classes (Potato, Tomato, Bell Pepper, Corn, Apple, Grape, Peach, Strawberry, Papaya).
+- **Multi-Spectral Foliar Verification**: OpenCV HSV and L\*a\*b\* color-space analysis detects authentic vegetation and rejects non-plant images.
 - **Botanical Leaf Profiling**: Identifies specific leaf names, compound leaf morphology, and taxonomic botanical species (e.g. *Solanum tuberosum*).
 - **Evidence-Based Prescriptions**: Recommends chemical and biological active ingredients with field dosages, spray frequencies, PPE safety precautions, and restricted-entry intervals (REI).
-- **Direct PDF Export**: One-click client-side PDF rendering (`html2pdf.js`) generates clean, clinical letterhead reports ready for print or download.
+- **Direct PDF Export**: One-click client-side PDF rendering (`html2pdf.js`) generates clean clinical reports featuring original and annotated images with the complete Area-Wise detection breakdown table.
 - **Dual-View User Interface**: Single-Page Application with smooth transitions between the Home Page and the Diagnostic Dashboard.
 - **Vibrant Animated Background**: High-resolution, zero-latency looping agricultural video background.
 
