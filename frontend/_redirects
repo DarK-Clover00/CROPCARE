@@ -1,9 +1,9 @@
 # Netlify Redirects for CropCare v3.0
 
-# API reverse-proxy to backend ML service (Render / Railway / GCP)
-/api/*  https://cropcare-api.onrender.com/api/:splat  200!
-/notification  https://cropcare-api.onrender.com/notification  200!
-/video/*  https://cropcare-api.onrender.com/video/:splat  200!
+# API reverse-proxy to local machine via Cloudflare Tunnel
+/api/*  https://everyday-got-circuits-theater.trycloudflare.com/api/:splat  200!
+/notification  https://everyday-got-circuits-theater.trycloudflare.com/notification  200!
+/video/*  https://everyday-got-circuits-theater.trycloudflare.com/video/:splat  200!
 
 # SPA fallback
 /*  /index.html  200
