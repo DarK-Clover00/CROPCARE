@@ -43,6 +43,10 @@ Thumbs.db
 .ipr
 *.iws
 
+# Netlify Local State
+.netlify/
+.netlify
+
 # Camera Runtime Outputs
 captured_leaf.jpg
 analyzed_leaf_areas.jpg
