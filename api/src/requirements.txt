@@ -1,12 +1,12 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.0.0
+torchvision>=0.15.0
+opencv-python-headless>=4.8.0
+numpy>=1.24.0
+Pillow>=10.0.0
+Flask>=2.2.0
+flask-cors>=3.0.0
+gunicorn>=21.0.0
+python-decouple>=3.8
 pandas
--f https://download.pytorch.org/whl/torch_stable.html                                                                                                                                                             
-torch==1.8.0+cpu
-torchvision
-numpy
 matplotlib
-flask==2.0.0
-seaborn
-gunicorn
-flask-cors
-pyfcm
-python-decouple
