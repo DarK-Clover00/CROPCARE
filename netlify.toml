@@ -1,0 +1,44 @@
+# Netlify Configuration for CropCare v3.0
+
+[build]
+  publish = "api/src"
+
+# Route root requests to templates/index.html
+[[redirects]]
+  from = "/"
+  to = "/templates/index.html"
+  status = 200
+
+# Transparent API proxy to the backend AI inference engine (Render / Railway / GCP)
+# Replace 'https://cropcare-api.onrender.com' with your actual deployed backend URL
+[[redirects]]
+  from = "/api/*"
+  to = "https://cropcare-api.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/notification"
+  to = "https://cropcare-api.onrender.com/notification"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/video/*"
+  to = "https://cropcare-api.onrender.com/video/:splat"
+  status = 200
+  force = true
+
+# Route root POST requests to Flask backend for inference
+[[redirects]]
+  from = "/"
+  to = "https://cropcare-api.onrender.com/"
+  status = 200
+  force = true
+  conditions = {Method = ["POST"]}
+
+# Fallback for SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/templates/index.html"
+  status = 200
