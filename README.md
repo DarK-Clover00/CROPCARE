@@ -9,7 +9,7 @@ CropCare v3.0 is an automated precision-agriculture diagnostic platform engineer
 ## 👥 Project Owners & Engineering Team
 * **Subarno Priyo Pandit** — Project Owner & Lead System Architect
 * **Sufal Podder** — Project Owner & Machine Learning Engineer
-* **Suchorita Ghosh** — Project Owner & Agronomic Data Specialist
+* **Sucharita Ghosh** — Project Owner & Agronomic Data Specialist
 * **Ayushman Paul** — Project Owner & Frontend Engineer
 * **Shannidhya Guha** — Project Owner & Systems Analyst
 
