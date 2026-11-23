@@ -1,4 +1,4 @@
-# 🌿 CropCare v3.0 — AI-Powered Live Leaf Detection & Crop Disease Management Platform
+# 🌿 CropCare — AI-Powered Live Leaf Detection & Crop Disease Management Platform
 
 > **Detect Early. Protect Crops. Grow Better.**
 
